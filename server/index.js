@@ -9,9 +9,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/api', (req, res) => {
-    res.json({ 'isServingJSON': true })
-})
+app.get("/", (req, res) => {
+    res.json({
+        message: "Review Everything API is running."
+    });
+});
+
+app.get("/api", (req, res) => {
+    res.json({
+        isServingJSON: true
+    });
+});
 
 app.get('/api/reviews', async (req, res) => {
     const result = await getAllReviews();
@@ -114,9 +122,14 @@ app.post("/api/reviews/:reviewID/comments", async (req, res) => {
 
 
 // Only start server if this file is run directly (not imported for tests)
+const PORT = process.env.PORT || 3100;
+
 if (import.meta.url === `file://${process.argv[1]}`) {
-    app.listen(3100, '0.0.0.0');
-    console.log('listening on 3100');
+    app.listen(PORT, "0.0.0.0", () => {
+        console.log(
+            `Review Everything API listening on port ${PORT}`
+        );
+    });
 }
 
 export default app;
