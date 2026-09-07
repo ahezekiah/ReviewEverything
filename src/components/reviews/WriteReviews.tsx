@@ -7,7 +7,7 @@ type WriteReviewsProps = {
     onReviewCreated?: () => void;
 };
 
-const API_BASE = "http://localhost:3100/api";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3100/api";
 const DEMO_USER_ID = '1';
 const MAX_REVIEW_LENGTH = 3000;
 

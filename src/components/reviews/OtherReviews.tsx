@@ -27,7 +27,7 @@ type OtherReviewsProps = {
     refreshKey?: number;
 };
 
-const API_BASE = "http://localhost:3100/api";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3100/api";
 const CURRENT_USER_ID = "1";
 
 export default function OtherReviews({ movieID, refreshKey = 0 }: OtherReviewsProps) {
