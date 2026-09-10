@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./style/adminpage.css";
-
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3100/api";
+import { API_BASE } from "../config/api";
 
 type Review = {
     _id?: string;

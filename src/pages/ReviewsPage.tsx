@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./style/reviews.css";
+import { API_BASE } from "../config/api";
 
 type Comment = {
   _id?: string;
@@ -22,47 +23,11 @@ type Review = {
   comments?: Comment[];
 };
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3100/api";
 const CURRENT_USER_ID = "1";
 
 export default function ReviewsPage() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [commentText, setCommentText] = useState<Record<string, string>>({});
-
-  // async function fetchReviews() {
-  //   try {
-  //     const res = await fetch(`${API_BASE}/reviews`);
-  //     const data = await res.json();
-
-  //     const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-
-  //     const reviewsWithMovieNames = await Promise.all(
-  //       (data.reviews || []).map(async (review: Review) => {
-  //         try {
-  //           const movieRes = await fetch(
-  //             `https://api.themoviedb.org/3/movie/${review.movieID}?api_key=${API_KEY}`
-  //           );
-
-  //           const movieData = await movieRes.json();
-
-  //           return {
-  //             ...review,
-  //             movieName: movieData.title || "Unknown Movie",
-  //           };
-  //         } catch {
-  //           return {
-  //             ...review,
-  //             movieName: "Unknown Movie",
-  //           };
-  //         }
-  //       })
-  //     );
-
-  //     setReviews(reviewsWithMovieNames);
-  //   } catch (error) {
-  //     console.error("Failed to load reviews:", error);
-  //   }
-  // }
 
   async function toggleLike(reviewID: string) {
     await fetch(`${API_BASE}/reviews/${reviewID}/like`, {

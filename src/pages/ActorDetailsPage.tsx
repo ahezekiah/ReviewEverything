@@ -19,7 +19,7 @@ export default function ActorDetails() {
             setActor(data);
         };
         fetchActor();
-    }, [id]);
+    }, [API_KEY, id]);
     if (!actor) return <p className="loading">Loading...</p>;
 
     return (

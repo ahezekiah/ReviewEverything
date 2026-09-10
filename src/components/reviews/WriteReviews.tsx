@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import './WriteReviews.css';
+import { API_BASE } from "../../config/api";
 
 type WriteReviewsProps = {
     movieID: string;
     onReviewCreated?: () => void;
 };
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3100/api";
 const DEMO_USER_ID = '1';
 const MAX_REVIEW_LENGTH = 3000;
 

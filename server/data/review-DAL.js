@@ -2,8 +2,7 @@ import mongoose from 'mongoose';
 import userReviewSchema from '../../models/UserReview.js';
 
 // Use mongodb service name in Docker, localhost for tests
-const mongoHost = process.env.MONGO_HOST || 'localhost';
-const uri = `mongodb://admin:admin@${mongoHost}:27017/reviewdb?authSource=admin`;
+const uri = process.env.MONGO_URI || 'mongodb://admin:admin@localhost:27017/reviewdb?authSource=admin';
 
 const UserReview = mongoose.model('UserReview', userReviewSchema, 'reviews');
 
