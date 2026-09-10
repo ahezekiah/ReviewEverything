@@ -39,8 +39,16 @@ app.get("/api", (req, res) => {
 });
 
 app.get('/api/reviews', async (req, res) => {
-    const result = await getAllReviews();
-    res.json({ reviews: result });
+    try {
+        const reviews = await getAllReviews();
+        res.status(200).json({ reviews });
+    } catch (error) {
+        console.error('GET /api/reviews failed:', error);
+
+        res.status(500).json({
+            message: 'Failed to load reviews.',
+        });
+    }
 });
 
 app.get('/api/user/reviews', async (req, res) => {
@@ -50,11 +58,26 @@ app.get('/api/user/reviews', async (req, res) => {
 })
 
 app.get('/api/movies/reviews', async (req, res) => {
-    const movieID = await req.query.movieID
-    console.log('review: ', movieID)
-    const result = await getAllReviewsByMovie(movieID)
-    res.json({ 'reviews': result })
-})
+    try {
+        const { movieID } = req.query;
+
+        if (!movieID) {
+            return res.status(400).json({
+                message: 'movieID is required.',
+            });
+        }
+
+        const reviews = await getAllReviewsByMovie(movieID);
+
+        res.status(200).json({ reviews });
+    } catch (error) {
+        console.error('GET /api/movies/reviews failed:', error);
+
+        res.status(500).json({
+            message: 'Failed to load movie reviews.',
+        });
+    }
+});
 
 app.get('/api/movies/reviews/:rating', async (req, res) => {
     const movieID = await req.query.movieID;
@@ -137,6 +160,13 @@ app.post("/api/reviews/:reviewID/comments", async (req, res) => {
     }
 });
 
+app.use((error, req, res, next) => {
+    console.error('Unhandled server error:', error);
+
+    res.status(500).json({
+        message: 'Internal server error.',
+    });
+});
 
 // Only start server if this file is run directly (not imported for tests)
 const PORT = process.env.PORT || 3100;
