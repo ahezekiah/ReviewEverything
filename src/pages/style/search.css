@@ -1,10 +1,9 @@
 .search-page {
   width: 100%;
   max-width: 100%;
-  /* padding: 2rem; */
+  min-height: calc(100vh - 80px);
   overflow-x: hidden;
   box-sizing: border-box;
-  height: calc(100vh - 80px);
 }
 
 .search-title {
@@ -27,8 +26,107 @@
     justify-content: center;
 }
 
+/* SEARCH RESULTS */
 .results-section {
-    margin-top: 1rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 2rem auto 4rem;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.results-grid .movie-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  padding: 0.75rem;
+  color: white;
+  text-decoration: none;
+  background: #05050a;
+  border: 2px solid #ff00ff;
+  border-radius: 12px;
+  box-sizing: border-box;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(255, 0, 255, 0.45);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.results-grid .movie-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 0 15px #ff00ff,
+    0 0 25px #00ffff;
+}
+
+.results-grid .movie-poster {
+  display: block;
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #222;
+}
+
+.results-grid .movie-title {
+  margin: 0;
+  padding: 1rem 0.5rem 0.5rem;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* TABLET */
+@media (max-width: 800px) {
+  .results-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .results-grid .movie-poster {
+    height: 260px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .results-section {
+    padding: 0 1rem;
+  }
+
+  .results-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .results-grid .movie-poster {
+    height: 230px;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 380px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .results-grid .movie-poster {
+    height: auto;
+    aspect-ratio: 2 / 3;
+  }
 }
 
 .no-results {
